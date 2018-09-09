@@ -106,6 +106,8 @@ pair<ForwardNode*, BackNode*> bidirectional(int start, int end){
                     return make_pair(node.first, b.second);
             }
             for (auto fN: node.first->getNodes()){
+                if (fN->n > end)
+                    continue;
                 fSet.emplace(fN->n, fN);
                 fqueue.emplace(fN, i);
             }
