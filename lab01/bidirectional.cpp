@@ -11,10 +11,10 @@
 using namespace std;
 class ForwardNode{
 public:
-    int n;
+    long long n;
     ForwardNode* parent;
 
-    ForwardNode(int n, ForwardNode* parent= nullptr){
+    ForwardNode(long long n, ForwardNode* parent= nullptr){
         this -> parent = parent;
         this -> n = n;
     }
@@ -29,10 +29,10 @@ public:
 
 class BackNode{
 public:
-    int n;
+    long long n;
     BackNode* parent;
 
-    BackNode(int n, BackNode* parent= nullptr){
+    BackNode(long long n, BackNode* parent= nullptr){
         this -> parent = parent;
         this -> n = n;
     }
@@ -46,8 +46,8 @@ public:
     }
 };
 
-vector<int> getPath(ForwardNode* fNode, BackNode* bNode){
-    vector<int> numbers(0);
+vector<long long> getPath(ForwardNode* fNode, BackNode* bNode){
+    vector<long long> numbers(0);
     numbers.push_back(fNode->n);
 
     fNode = fNode ->parent;
@@ -65,7 +65,7 @@ vector<int> getPath(ForwardNode* fNode, BackNode* bNode){
     return numbers;
 }
 
-void showPath(vector<int>& numbers){
+void showPath(vector<long long>& numbers){
     cout << numbers[0];
     for (int i = 1; i <numbers.size(); ++i){
         cout << " -> " << numbers[i];
@@ -73,15 +73,15 @@ void showPath(vector<int>& numbers){
     cout << endl;
 }
 
-pair<ForwardNode*, BackNode*> bidirectional(int start, int end){
+pair<ForwardNode*, BackNode*> bidirectional(long long start, long long end){
     // start 2 queues, one from start, second from end
     // create 2 sets, sets<TreeNode*>
 
-    map<int, ForwardNode*> fSet;
-    map<int, BackNode*> bSet;
+    map<long long, ForwardNode*> fSet;
+    map<long long, BackNode*> bSet;
 
-    queue<pair<ForwardNode*, int>> fqueue;
-    queue<pair<BackNode*, int>> bqueue;
+    queue<pair<ForwardNode*, long long>> fqueue;
+    queue<pair<BackNode*, long long>> bqueue;
 
     ForwardNode* fNode = new ForwardNode(start);
     fqueue.emplace(fNode, 0);
@@ -140,8 +140,8 @@ pair<ForwardNode*, BackNode*> bidirectional(int start, int end){
 }
 
 int main(int args, char* argv[]){
-    int start;
-    int end;
+    long long start;
+    long long end;
     std::string user_input(argv[1]);
     user_input += " ";
     user_input += argv[2];
@@ -154,7 +154,7 @@ int main(int args, char* argv[]){
     }
 
     pair<ForwardNode*, BackNode*> nodes = bidirectional(start, end);
-    vector<int> path = getPath(nodes.first, nodes.second);
+    vector<long long> path = getPath(nodes.first, nodes.second);
     showPath(path);
 
     return 0;
