@@ -2,6 +2,7 @@
 #include <vector>
 #include <queue>
 #include <list>
+#include <chrono>
 
 using namespace std;
 
@@ -65,7 +66,13 @@ int main()
     // +3 *2
     int n1, n2;
     cin >> n1 >> n2;
+
+    auto time_start = std::chrono::steady_clock::now();
     findPath(n1, n2);
+
+    auto finish = std::chrono::steady_clock::now();
+    std::chrono::duration<double> diff = finish-time_start;
+    std::cout<< diff.count() << std::endl;
 
     return 0;
 }

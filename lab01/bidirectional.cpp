@@ -7,6 +7,7 @@
 #include <iostream>
 #include <algorithm>
 #include <sstream>
+#include <chrono>
 
 using namespace std;
 class ForwardNode{
@@ -140,6 +141,8 @@ pair<ForwardNode*, BackNode*> bidirectional(long long start, long long end){
 }
 
 int main(int args, char* argv[]){
+
+
     long long start;
     long long end;
     std::string user_input(argv[1]);
@@ -153,9 +156,15 @@ int main(int args, char* argv[]){
         return 0;
     }
 
+    auto time_start = std::chrono::steady_clock::now();
+
     pair<ForwardNode*, BackNode*> nodes = bidirectional(start, end);
     vector<long long> path = getPath(nodes.first, nodes.second);
     showPath(path);
+
+    auto finish = std::chrono::steady_clock::now();
+    std::chrono::duration<double> diff = finish-time_start;
+    std::cout<< diff.count() << std::endl;
 
     return 0;
 }

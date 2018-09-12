@@ -3,4 +3,4 @@ project(lab01)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(lab01 bidirectional.cpp)
+add_executable(lab01 main1.cpp)
