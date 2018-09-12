@@ -6,13 +6,13 @@
 #include <map>
 #include <iostream>
 #include <algorithm>
+#include <sstream>
 
 using namespace std;
 class ForwardNode{
 public:
     int n;
     ForwardNode* parent;
-    vector<ForwardNode*> nodes;
 
     ForwardNode(int n, ForwardNode* parent= nullptr){
         this -> parent = parent;
@@ -20,6 +20,7 @@ public:
     }
 
     vector<ForwardNode*> getNodes(){
+        vector<ForwardNode*> nodes;
         nodes.push_back(new ForwardNode(n+3, this) );
         nodes.push_back(new ForwardNode(n*2, this) );
         return nodes;
@@ -30,7 +31,6 @@ class BackNode{
 public:
     int n;
     BackNode* parent;
-    vector<BackNode*> nodes;
 
     BackNode(int n, BackNode* parent= nullptr){
         this -> parent = parent;
@@ -38,6 +38,7 @@ public:
     }
 
     vector<BackNode*> getNodes(){
+        vector<BackNode*> nodes;
         nodes.push_back(new BackNode(n-3, this) );
         if (n % 2 ==0)
             nodes.push_back(new BackNode(n/2, this) );
@@ -101,15 +102,17 @@ pair<ForwardNode*, BackNode*> bidirectional(int start, int end){
                 break;
             fqueue.pop();
 
-            for (auto b: bSet){
-                if (node.first->n == b.first)
-                    return make_pair(node.first, b.second);
+            auto it = bSet.find(node.first->n);
+            if (it != bSet.end()){
+                return make_pair(node.first, it->second);
             }
             for (auto fN: node.first->getNodes()){
                 if (fN->n > end)
                     continue;
-                fSet.emplace(fN->n, fN);
-                fqueue.emplace(fN, i);
+                if (fSet.find(fN -> n) == fSet.end()) {
+                    fSet.emplace(fN->n, fN);
+                    fqueue.emplace(fN, i);
+                }
             }
         }
 
@@ -119,13 +122,16 @@ pair<ForwardNode*, BackNode*> bidirectional(int start, int end){
                 break;
             bqueue.pop();
 
-            for (auto b: fSet){
-                if (node.first->n == b.first)
-                    return make_pair(b.second, node.first);
+            auto it = fSet.find(node.first->n);
+            if (it != fSet.end()){
+                return make_pair(it->second, node.first);
             }
+
             for (auto fN: node.first->getNodes()){
-                bSet.emplace(fN->n, fN);
-                bqueue.emplace(fN, i);
+                if (bSet.find(fN -> n) == bSet.end()) {
+                    bSet.emplace(fN->n, fN);
+                    bqueue.emplace(fN, i);
+                }
             }
         }
 
@@ -133,14 +139,15 @@ pair<ForwardNode*, BackNode*> bidirectional(int start, int end){
     }
 }
 
-int main(){
+int main(int args, char* argv[]){
     int start;
     int end;
-
-    cout << "enter start number" << endl;
-    cin >> start;
-    cout << "enter end number " << endl;
-    cin >> end;
+    std::string user_input(argv[1]);
+    user_input += " ";
+    user_input += argv[2];
+    istringstream iss(user_input);
+    iss >> start >> end;
+    //cin >> start >> end;
     if (start > end){
         cout << "sorry, start number must be more than end number" << endl;
         return 0;
