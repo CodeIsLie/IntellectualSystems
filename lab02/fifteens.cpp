@@ -3,6 +3,8 @@
 #include <functional>
 #include <queue>
 #include <unordered_set>
+#include <ctime>
+#include <random>
 
 using namespace std;
 
@@ -64,10 +66,13 @@ void showGrid(Node* node){
 }
 
 void showPath(Node* node){
+    int steps = 0;
     while (node != nullptr){
-        showGrid(node);
+        //showGrid(node);
         node = node -> parent;
+        steps++;
     }
+    cout << endl << "count steps is " << steps;
 }
 
 struct GridEquals{
@@ -99,8 +104,10 @@ public:
 int Manhetten(Node* node){
     vector<size_t>& grid = node->grid;
     int sum = 0;
-    for (int i = 0; i < 15; ++i){
-        size_t currentI = grid[i]-1;
+    for (int i = 0; i < 16; ++i){
+        if (grid[i] == 0)
+            continue;
+        size_t currentI = (15 + grid[i]) % 16;
         int dx = abs((i % 4) - int(currentI % 4));
         int dy = abs(i/4 - int(currentI/4));
         sum += dx + dy;
@@ -161,13 +168,26 @@ Node* AStar(Node* node, function<int(Node*)> h){
     }
 }
 
+Node* randomState(Node* startState, int steps){
+    Node* node = startState;
+    while (steps--){
+        auto moves = node->getMoves();
+        node = moves[rand() % moves.size()];
+    }
+    return node;
+}
+
 int main() {
-    //vector<size_t> startGrid = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 15};
-    vector<size_t> startGrid = {15, 1, 2, 12, 8, 5, 6, 11, 4, 9, 10, 7,3, 14, 13, 0};
-    Node* start = new Node(startGrid);
-//    size_t hash = GridHash()(start);
-//    cout << hash << endl;
-    Node* answer = AStar(start, Manhetten);
-    showPath(answer);
+    srand(time(0));
+    vector<size_t> startGrid = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0};
+    //vector<size_t> startGrid = {15, 1, 2, 12, 8, 5, 6, 11, 4, 9, 10, 7,3, 14, 13, 0};
+    for (int i = 0; i < 30; ++i) {
+        Node *start = new Node(startGrid);
+        start = randomState(start, 70);
+        start->parent = nullptr;
+
+        Node *answer = AStar(start, Manhetten);
+        showPath(answer);
+    }
     return 0;
 }
