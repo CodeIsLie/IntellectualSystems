@@ -12,8 +12,16 @@ public:
     vector<size_t> grid;
     int x;
     int y;
-    Node(vector<size_t> grid, int x, int y, Node* parent= nullptr){
+    Node(vector<size_t> grid, int x=-1, int y=-1, Node* parent= nullptr){
         this -> grid = move(grid);
+        if (x==-1 && y==-1){
+            for (int i = 0; i < this->grid.size(); ++i){
+                if (this->grid[i] == 0){
+                    x = i % 4;
+                    y = i / 4;
+                }
+            }
+        }
         this -> x = x;
         this -> y = y;
         this->parent = parent;
@@ -108,7 +116,26 @@ bool isGoal(vector<size_t> grid){
     return grid[grid.size()-1] == 0;
 }
 
+bool solvable(Node* node){
+    vector<size_t > grid = node->grid;
+    int cntInversions = 0;
+    for (int i = 0; i < grid.size(); ++i){
+        for (int j = i+1; j < grid.size(); ++j){
+            if (grid[i] && grid[j] && grid[i] > grid[j])
+                cntInversions++;
+        }
+    }
+
+    int y = node->y;
+    return (cntInversions%2 == 0 && y%2==1) || (cntInversions%2 == 1 && y%2==0);
+}
+
 Node* AStar(Node* node, function<int(Node*)> h){
+    if (!solvable(node)){
+        cout << "Unsolvable" << endl;
+        return node;
+    }
+
     unordered_set<Node*, GridHash, GridEquals> used;
 
     priority_queue<pair<int, Node*>> qq;
@@ -125,7 +152,7 @@ Node* AStar(Node* node, function<int(Node*)> h){
 
         int pathLength = -node.first - h(node.second);
         for (Node* to: node.second->getMoves()){
-            showGrid(to);
+            //showGrid(to);
             if (used.find(to) == used.end()) {
                 size_t heur = h(to) + pathLength + 1;
                 qq.emplace(-heur, to);
@@ -135,10 +162,11 @@ Node* AStar(Node* node, function<int(Node*)> h){
 }
 
 int main() {
-    vector<size_t> startGrid = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 15};
-    Node* start = new Node(startGrid, 2, 3);
-    size_t hash = GridHash()(start);
-    cout << hash << endl;
+    //vector<size_t> startGrid = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 15};
+    vector<size_t> startGrid = {15, 1, 2, 12, 8, 5, 6, 11, 4, 9, 10, 7,3, 14, 13, 0};
+    Node* start = new Node(startGrid);
+//    size_t hash = GridHash()(start);
+//    cout << hash << endl;
     Node* answer = AStar(start, Manhetten);
     showPath(answer);
     return 0;
