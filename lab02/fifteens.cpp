@@ -6,6 +6,8 @@
 #include <ctime>
 #include <random>
 
+#define TIME
+
 using namespace std;
 
 class Node{
@@ -168,6 +170,48 @@ Node* AStar(Node* node, function<int(Node*)> h){
     }
 }
 
+Node* IDAStar(Node* node, function<int(Node*)> h, int deep){
+    unordered_set<Node*, GridHash, GridEquals> used;
+
+    priority_queue<pair<int, Node*>> qq;
+    qq.emplace(-h(node), node);
+
+    while (!qq.empty()){
+        auto node = qq.top();
+        used.insert(node.second);
+        qq.pop();
+
+        if (isGoal(node.second->grid)){
+            return node.second;
+        }
+
+        int pathLength = -node.first - h(node.second);
+        if (pathLength + 1 >= deep)
+            return nullptr;
+        for (Node* to: node.second->getMoves()){
+            if (used.find(to) == used.end()) {
+                size_t heur = h(to) + pathLength + 1;
+                qq.emplace(-heur, to);
+            }
+        }
+    }
+    return nullptr;
+}
+
+Node* IDAStar(Node* node, function<int(Node*)> h){
+    if (!solvable(node)){
+        cout << "Unsolvable" << endl;
+        return node;
+    }
+
+    for (int i = 0; i < 90; ++i){
+        Node* answer = IDAStar(node, h, i);
+        if (answer != nullptr && isGoal(answer->grid)){
+            return answer;
+        }
+    }
+}
+
 Node* randomState(Node* startState, int steps){
     Node* node = startState;
     while (steps--){
@@ -178,16 +222,30 @@ Node* randomState(Node* startState, int steps){
 }
 
 int main() {
+    int prev_time = (double)clock() / CLOCKS_PER_SEC * 1e3;
+
     srand(time(0));
     vector<size_t> startGrid = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0};
     //vector<size_t> startGrid = {15, 1, 2, 12, 8, 5, 6, 11, 4, 9, 10, 7,3, 14, 13, 0};
-    for (int i = 0; i < 30; ++i) {
+    for (int i = 0; i < 17; ++i) {
         Node *start = new Node(startGrid);
-        start = randomState(start, 70);
+        start = randomState(start, 120);
         start->parent = nullptr;
 
-        Node *answer = AStar(start, Manhetten);
-        showPath(answer);
+//        Node *answer = AStar(start, Manhetten);
+//#ifdef TIME
+//        cout << "\n=========== ";
+//        cout<< ((double)clock() / CLOCKS_PER_SEC * 1e3) - prev_time << endl;
+//        prev_time = ((double)clock() / CLOCKS_PER_SEC * 1e3);
+//#endif
+//        showPath(answer);
+        Node* idanswer = IDAStar(start, Manhetten);
+        showPath(idanswer);
+#ifdef TIME
+        cout << "\n=========== ";
+        cout<< ((double)clock() / CLOCKS_PER_SEC * 1e3) - prev_time << endl;
+        prev_time = ((double)clock() / CLOCKS_PER_SEC * 1e3);
+#endif
     }
     return 0;
 }
