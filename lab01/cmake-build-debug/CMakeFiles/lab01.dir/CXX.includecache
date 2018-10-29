@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Programs/CandCPP/IntellectualSystems/lab01/backPropagation.cpp
+queue
+-
+vector
+-
+map
+-
+iostream
+-
+algorithm
+-
+

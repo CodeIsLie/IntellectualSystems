@@ -46,7 +46,7 @@ int main() {
 //    idanswer = IDAStar(new Node(startGrid), Conflicts);
 //    showPath(idanswer);
 
-    for (int cnt_steps = 10; cnt_steps < 200; cnt_steps+=10)
+    for (int cnt_steps = 70; cnt_steps < 300; cnt_steps+=10)
         for (int i = 0; i < 1; ++i) {
             Node *start = new Node(startGrid);
             start = randomState(start, cnt_steps);

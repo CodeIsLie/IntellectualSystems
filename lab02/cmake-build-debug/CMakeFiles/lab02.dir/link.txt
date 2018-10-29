@@ -1,0 +1,1 @@
+C:/cygwin64/bin/c++.exe -g  -Wl,--enable-auto-import CMakeFiles/lab02.dir/fifteens.cpp.o CMakeFiles/lab02.dir/Node.cpp.o CMakeFiles/lab02.dir/Search_algs.cpp.o CMakeFiles/lab02.dir/Heuristics.cpp.o  -o lab02.exe -Wl,--out-implib,liblab02.dll.a -Wl,--major-image-version,0,--minor-image-version,0 
