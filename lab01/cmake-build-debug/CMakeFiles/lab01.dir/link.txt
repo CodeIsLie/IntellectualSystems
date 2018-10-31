@@ -1,1 +1,0 @@
-C:/cygwin64/bin/c++.exe -g  -Wl,--enable-auto-import CMakeFiles/lab01.dir/bidirectional.cpp.o  -o lab01.exe -Wl,--out-implib,liblab01.dll.a -Wl,--major-image-version,0,--minor-image-version,0 
