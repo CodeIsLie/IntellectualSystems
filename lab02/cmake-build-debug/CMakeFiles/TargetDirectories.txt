@@ -1,3 +1,0 @@
-/cygdrive/c/Programs/CandCPP/IntellectualSystems/lab02/cmake-build-debug/CMakeFiles/edit_cache.dir
-/cygdrive/c/Programs/CandCPP/IntellectualSystems/lab02/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/cygdrive/c/Programs/CandCPP/IntellectualSystems/lab02/cmake-build-debug/CMakeFiles/lab02.dir
