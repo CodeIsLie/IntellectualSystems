@@ -4,25 +4,10 @@
 from production import IF, AND, OR, NOT, THEN, DELETE, forward_chain, pretty_goal_tree
 from data import *
 import pprint
+from tester import test_offline
 
 pp = pprint.PrettyPrinter(indent=1)
 pprint = pp.pprint
-
-#### Part 1: Multiple Choice #########################################
-
-ANSWER_1 = ''
-
-ANSWER_2 = ''
-
-ANSWER_3 = ''
-
-ANSWER_4 = ''
-
-ANSWER_5 = ''
-
-ANSWER_6 = ''
-
-ANSWER_7 = ''
 
 #### Part 2: Transitive Rule #########################################
 
@@ -40,8 +25,6 @@ transitive_rule = IF( AND( ), THEN( ) )
 
 # Define your rules here. We've given you an example rule whose lead you can follow:
 friend_rule = IF( AND("person (?x)", "person (?y)"), THEN ("friend (?x) (?y)", "friend (?y) (?x)") )
-
-
 
 
 # Add your rules to this list:
@@ -83,22 +66,27 @@ def backchain_to_goal_tree(rules, hypothesis):
     (possibly with unbound variables), *not* AND or OR objects.
     Make sure to use simplify(...) to flatten trees where appropriate.
     """
-    raise NotImplementedError
+
+    tree = OR(hypothesis)
+    for rule in rules:
+        match_res = match(rule.consequent(), hypothesis)
+        if match_res is not None:
+            or_node = OR()
+            tree.append(or_node)
+            nodes = populate(rule.antecedent(), match_res)
+            if type(nodes) == str:
+                nodes = [nodes]
+            for i in range(len(nodes)):
+                nodes[i] = backchain_to_goal_tree(rules, nodes[i])
+            or_node.append(nodes)
+
+    tree = simplify(tree)
+    return tree
 
 
 # Uncomment this to test out your backward chainer:
-# pretty_goal_tree(backchain_to_goal_tree(zookeeper_rules, 'opus is a penguin'))
-
-
-#### Survey #########################################
-
-NAME = None
-COLLABORATORS = None
-HOW_MANY_HOURS_THIS_LAB_TOOK = None
-WHAT_I_FOUND_INTERESTING = None
-WHAT_I_FOUND_BORING = None
-SUGGESTIONS = None
-
+pretty_goal_tree(backchain_to_goal_tree(zookeeper_rules, 'opus is a penguin'))
+test_offline()
 
 ###########################################################
 ### Ignore everything below this line; for testing only ###
