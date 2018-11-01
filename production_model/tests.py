@@ -4,7 +4,6 @@ from production import IF, AND, OR, NOT, THEN, run_conditions
 import production as lab
 from tester import make_test, get_tests, type_encode, type_decode
 from data import *
-from lab1 import transitive_rule, family_rules
 import random
 random.seed()
 lab_number = 1

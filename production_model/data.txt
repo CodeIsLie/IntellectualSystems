@@ -1,0 +1,12 @@
+F1: (?x) has hair
+F2: (?x) is a mammal
+F3: (?x) gives milk
+F4: (?x) is a mammal
+F5: (?x) has feathers
+F6: (?x) is a bird
+
+end
+
+R1: F1 => F2
+R2: F3 => F4
+R3: F5 => F6
