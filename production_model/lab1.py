@@ -40,6 +40,6 @@ def backchain_to_goal_tree(rules, hypothesis):
     tree = simplify(tree)
     return tree
 
-# pretty_goal_tree(backchain_to_goal_tree(zookeeper_rules, 'opus is a penguin'))
-print(parse_file('data.txt')[0])
-print(parse_file('data.txt')[1])
+pretty_goal_tree(backchain_to_goal_tree(zookeeper_rules, 'opus is a penguin'))
+# print(parse_file('data.txt')[0])
+# print(parse_file('data.txt')[1])
