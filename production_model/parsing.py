@@ -26,11 +26,11 @@ def parse_file(filename):
     :return: pair (list of facts, list of rules)
     """
     facts, rules = None, None
-    rows = open(filename, "r").read().splitlines()
+    rows = open(filename, "r", encoding='utf8').read()[1:].splitlines()
     rows = list(filter(None, rows))
     for i in range(len(rows)):
         if rows[i].strip() == 'end':
-            facts = get_facts(rows[0:i])
+            facts = get_facts(rows[:i])
             rules = get_rules(rows[i+1:], facts)
             break
 

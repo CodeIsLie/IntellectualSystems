@@ -40,6 +40,20 @@ def backchain_to_goal_tree(rules, hypothesis):
     tree = simplify(tree)
     return tree
 
-pretty_goal_tree(backchain_to_goal_tree(zookeeper_rules, 'opus is a penguin'))
-# print(parse_file('data.txt')[0])
-# print(parse_file('data.txt')[1])
+
+def apply_forward_chain(rules, facts):
+    init_facts = facts
+    final_facts = forward_chain(rules, facts)
+    print("input facts: {}".format(init_facts))
+    print("consequent facts: {}".format(set(final_facts) - set(init_facts)))
+
+
+facts, rules = parse_file("data.txt")
+# backward chain
+pretty_goal_tree(backchain_to_goal_tree(rules, 'гость - Тралл'))
+# pretty_goal_tree(backchain_to_goal_tree(rules, 'гость - Нелтарион'))
+# pretty_goal_tree(backchain_to_goal_tree(rules, 'гость - Вол\'Джин'))
+# forward chain
+# apply_forward_chain(rules, [facts['F18'], facts['F25'], facts['F43']])
+# apply_forward_chain(rules, [facts['F23'], facts['F24'], facts['F43']])
+# apply_forward_chain(rules, [facts['F19'], facts['F33'], facts['F35'], facts['F49'], facts['F44']])
