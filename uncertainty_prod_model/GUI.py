@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import filedialog
 
 from PIL import Image, ImageTk, ImageDraw
+from production import *
 
 
 class WorkArea:
@@ -24,10 +25,10 @@ class WorkArea:
 
         Label(self.root, text="Введите характеристики студента", font='Arial 20').grid(row=0, column=2, sticky=W + N)
 
-        deadline = IntVar()
-        rbut1 = Radiobutton(self.root, text="Сдаёт всё в срок", variable=deadline, value=1)
-        rbut2 = Radiobutton(self.root, text="Сдаёт с небольшим опозданием", variable=deadline, value=2)
-        rbut3 = Radiobutton(self.root, text="Сдаёт всё в срок", variable=deadline, value=3)
+        self.deadline = IntVar()
+        rbut1 = Radiobutton(self.root, text="Сдаёт всё в срок", variable=self.deadline, value=1)
+        rbut2 = Radiobutton(self.root, text="Сдаёт с небольшим опозданием", variable=self.deadline, value=2)
+        rbut3 = Radiobutton(self.root, text="Сдаёт всё в срок", variable=self.deadline, value=3)
 
         rbut1.grid(row=2, column=1, sticky = "w")
         rbut2.grid(row=3, column=1, sticky = "w")
@@ -76,6 +77,22 @@ class WorkArea:
         # self.rotate_x_center_button.grid(row=7, column=4)
 
         self.root.mainloop()
+
+    # TODO: get facts from GUI
+    def get_facts(self):
+        start_facts = [
+            GraphNode("fact1", 1 if self.deadline.get() == 1 else 0),
+            GraphNode("fact2", 1 if self.deadline.get() == 2 else 0)
+        ]
+        return start_facts
+
+    def run(self):
+        facts = self.get_facts()
+        prod_system = ProductionSystem.get_instance(facts)
+        prod_system.mainloop()
+        # f1, f2, f3, f4 =
+        result = prod_system.get_result()
+        # TODO: print results on window
 
 
 gui = WorkArea()
