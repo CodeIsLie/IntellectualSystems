@@ -11,7 +11,7 @@ class GraphNode:
         self.CF = CF
         self.calculated = False
 
-    def addCF(self, CF):
+    def add_CF(self, CF):
         if self.calculated:
             CF1 = self.CF
             CF2 = CF
@@ -28,35 +28,32 @@ class GraphNode:
 
 
 class ProductionSystem:
-    def __init__(self, rules, nodes, key_facts):
+    def __init__(self, rules, facts, key_facts):
         self.rules = rules
         # dictionary maybe
-        self.nodes = nodes
-        # ["notPass", "passInTime", "passOnRetake", "passOnCommission"]
+        self.facts = facts
         self.key_facts = key_facts
-        self.likilihoods = {
+        self.likelihoods = {
             "rule1": 0.99,
             "rule2": 0.95
         }
 
     def mainloop(self):
         for rule in self.rules:
-            fact_name = str(rule.consequence)
-            if fact_name not in self.nodes:
-                self.nodes[fact_name] = GraphNode(fact_name)
             rule.calc()
 
     def get_result(self):
-        return [x for x in self.nodes if str(x) in self.key_facts]
+        return [y for x, y in self.facts.items() if str(x) in self.key_facts]
 
     @staticmethod
     def get_instance(facts):
         fact_names = get_graph_facts()
-        existing_fact_names = [str(f) for f in facts]
+        facts = {str(f): f for f in facts}
         for f in fact_names:
-            if f not in existing_fact_names:
-                facts.append(GraphNode(f))
+            if f not in facts:
+                facts[f] = (GraphNode(f))
         key_facts = get_graph_key_facts()
-        rules = get_graphs_rules()
+        rules = [Rule(r.name, [facts[c] for c in r.condition],
+                      facts[r.consequence], r.likelihood) for r in get_graphs_rules()]
 
         return ProductionSystem(rules, facts, key_facts)
