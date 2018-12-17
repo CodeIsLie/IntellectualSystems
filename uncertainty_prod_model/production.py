@@ -26,17 +26,14 @@ class GraphNode:
     def __str__(self):
         return self.name
 
+    def __repr__(self):
+        return str(self.name) + " " + str(self.CF)
 
 class ProductionSystem:
     def __init__(self, rules, facts, key_facts):
         self.rules = rules
-        # dictionary maybe
         self.facts = facts
         self.key_facts = key_facts
-        self.likelihoods = {
-            "rule1": 0.99,
-            "rule2": 0.95
-        }
 
     def mainloop(self):
         for rule in self.rules:

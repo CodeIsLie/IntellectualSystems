@@ -16,52 +16,36 @@ class WorkArea:
         self.root.title("BezdelnikSystem")
         self.root.resizable(False, False)
 
-        # self.canvas = Canvas(self.root, bg='white', width=self.DEFAULT_WIDTH, height=self.DEFAULT_WIDTH)
-        # self.canvas.grid(row=1, columnspan=10)
-        # self.image = Image.new('RGB', (self.DEFAULT_WIDTH, self.DEFAULT_HEIGHT), 'white')
-        # self.draw = ImageDraw.Draw(self.image)
-        # Frame1 = Frame(self.root)
-        # Frame1.grid(row=0, column=0, rowspan=3, columnspan=2, sticky=W + E + N + S)
-
         Label(self.root, text="Введите характеристики студента", font='Arial 20').grid(row=0, column=2, columnspan=3, sticky=W + N)
 
-        self.deadline = IntVar()
-        rbut1 = Radiobutton(self.root, text="Сдаёт всё в срок", variable=self.deadline, value=1)
-        rbut2 = Radiobutton(self.root, text="Сдаёт с небольшим опозданием", variable=self.deadline, value=2)
-        rbut3 = Radiobutton(self.root, text="Сдаёт c большим опозданием", variable=self.deadline, value=3)
+        self.deadline = IntVar(value=1)
+        self.in_deadline = Radiobutton(self.root, text="Сдаёт всё в срок", variable=self.deadline, value=1)
+        self.small_delay = Radiobutton(self.root, text="Сдаёт с небольшим опозданием", variable=self.deadline, value=2)
+        self.big_delay = Radiobutton(self.root, text="Сдаёт c большим опозданием", variable=self.deadline, value=3)
 
-        rbut1.grid(row=2, column=1, sticky = "w")
-        rbut2.grid(row=3, column=1, sticky = "w")
-        rbut3.grid(row=4, column=1, sticky = "w")
+        self.in_deadline.grid(row=2, column=1, sticky = "w")
+        self.small_delay.grid(row=3, column=1, sticky = "w")
+        self.big_delay.grid(row=4, column=1, sticky = "w")
 
-        do_char = IntVar()
-        do_alone = Radiobutton(self.root, text="Хорошо разбирается", variable=do_char, value=1)
-        do_small_help = Radiobutton(self.root, text="Средне разбирается", variable=do_char, value=2)
-        do_not_byself = Radiobutton(self.root, text="Плохо разбирается", variable=do_char, value=3)
+        self.skill = IntVar(value=1)
+        self.good_skill = Radiobutton(self.root, text="Хорошо разбирается", variable=self.skill, value=1)
+        self.mid_skill = Radiobutton(self.root, text="Средне разбирается", variable=self.skill, value=2)
+        self.poor_skill = Radiobutton(self.root, text="Плохо разбирается", variable=self.skill, value=3)
 
-        do_alone.grid(row=2, column=2, sticky = "w")
-        do_small_help.grid(row=3, column=2, sticky = "w")
-        do_not_byself.grid(row=4, column=2, sticky = "w")
+        self.good_skill.grid(row=2, column=2, sticky = "w")
+        self.mid_skill.grid(row=3, column=2, sticky = "w")
+        self.poor_skill.grid(row=4, column=2, sticky = "w")
 
         self.additional_classes = IntVar()
         Checkbutton(self.root, text="Дополнительно занимается",
                     variable=self.additional_classes).grid(row=2, column=3, sticky = "w")
-        self.complex_tasks = IntVar()
-        Checkbutton(self.root, text="Обычно всё сдаёт быстро",
-                    variable=self.complex_tasks).grid(row=3, column=3, sticky = "w")
         self.graph_tasks = IntVar()
-        Checkbutton(self.root, text="Интересуется задачами на графы",
+        Checkbutton(self.root, text="Интересуется графами",
                     variable=self.graph_tasks).grid(row=4, column=3, sticky = "w")
 
         self.can_cheat = IntVar()
         Checkbutton(self.root, text="Умеет списывать",
                     variable=self.can_cheat).grid(row=2, column=4, sticky="w")
-        # self.know_math = IntVar()
-        # Checkbutton(self.root, text="Хорош в математике",
-        #             variable=self.know_math).grid(row=6, column=4, sticky="w")
-        self.good_in_programming = IntVar()
-        Checkbutton(self.root, text="Хорошо программирует",
-                    variable=self.good_in_programming).grid(row=3, column=4, sticky="w")
         self.procrastination = IntVar()
         Checkbutton(self.root, text="Имеет Склонность к прокрастинации",
                     variable=self.procrastination).grid(row=4, column=4, sticky="w")
@@ -75,9 +59,16 @@ class WorkArea:
     # TODO: get facts from GUI
     def get_facts(self):
         start_facts = [
-            GraphNode("Сдал лабы", 1 if self.deadline.get() == 1 else 0),
-            GraphNode("Не сдал лабы", 1 if self.deadline.get() == 2 else 0),
-            GraphNode("Сдал опросы", 1)
+            GraphNode("Хорошо разбирается", 1 if self.skill.get() == 1 else 0),
+            GraphNode("Средне разбирается", 1 if self.skill.get() == 2 else 0),
+            GraphNode("Плохо разбирается", 1 if self.skill.get() == 3 else 0),
+            GraphNode("Сдаёт в срок", 1 if self.skill.get() == 1 else 0),
+            GraphNode("Сдаёт с маленьким опозданием", 1 if self.skill.get() == 2 else 0),
+            GraphNode("Сдаёт с большим опозданием", 1 if self.skill.get() == 3 else 0),
+            GraphNode("Дополнительно занимается", 1 if self.additional_classes.get() == 1 else 0),
+            GraphNode("Интересуют графы", 1 if self.graph_tasks.get() == 1 else 0),
+            GraphNode("Прокрастинация", 1 if self.procrastination.get() == 1 else 0),
+            GraphNode("Умеет списывать", 1 if self.can_cheat.get() == 1 else 0)
         ]
         return start_facts
 
