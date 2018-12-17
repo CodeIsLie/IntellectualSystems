@@ -6,7 +6,7 @@ from rules import *
 from graphsData import *
 
 class GraphNode:
-    def __init__(self, name, CF = None):
+    def __init__(self, name, CF=None):
         self.name = name
         self.CF = CF
         self.calculated = False
@@ -24,7 +24,7 @@ class GraphNode:
         self.calculated = True
 
     def __str__(self):
-        return self.name
+        return str(self.name) + " " + str(self.CF)
 
     def __repr__(self):
         return str(self.name) + " " + str(self.CF)
@@ -45,12 +45,12 @@ class ProductionSystem:
     @staticmethod
     def get_instance(facts):
         fact_names = get_graph_facts()
-        facts = {str(f): f for f in facts}
+        facts = {f.name: f for f in facts}
         for f in fact_names:
             if f not in facts:
                 facts[f] = (GraphNode(f))
         key_facts = get_graph_key_facts()
         rules = [Rule(r.name, [facts[c] for c in r.condition],
-                      facts[r.consequence], r.likelihood) for r in get_graphs_rules()]
+                      facts[r.consequence], r.likelihood, r.rule_type) for r in get_graphs_rules()]
 
         return ProductionSystem(rules, facts, key_facts)

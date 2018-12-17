@@ -7,7 +7,7 @@ class Mod(Enum):
     NOT = 3
 
 class Rule:
-    def __init__(self, name, condition, consequence, likelihood=1.0, rule_type = Mod.AND):
+    def __init__(self, name, condition, consequence, likelihood, rule_type=Mod.AND):
         self.name = name
         self.condition = condition
         self.consequence = consequence

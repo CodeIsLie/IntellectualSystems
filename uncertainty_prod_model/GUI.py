@@ -62,9 +62,9 @@ class WorkArea:
             GraphNode("Хорошо разбирается", 1 if self.skill.get() == 1 else 0),
             GraphNode("Средне разбирается", 1 if self.skill.get() == 2 else 0),
             GraphNode("Плохо разбирается", 1 if self.skill.get() == 3 else 0),
-            GraphNode("Сдаёт в срок", 1 if self.skill.get() == 1 else 0),
-            GraphNode("Сдаёт с маленьким опозданием", 1 if self.skill.get() == 2 else 0),
-            GraphNode("Сдаёт с большим опозданием", 1 if self.skill.get() == 3 else 0),
+            GraphNode("Сдаёт в срок", 1 if self.deadline.get() == 1 else 0),
+            GraphNode("Сдаёт с маленьким опозданием", 1 if self.deadline.get() == 2 else 0),
+            GraphNode("Сдаёт с большим опозданием", 1 if self.deadline.get() == 3 else 0),
             GraphNode("Дополнительно занимается", 1 if self.additional_classes.get() == 1 else 0),
             GraphNode("Интересуют графы", 1 if self.graph_tasks.get() == 1 else 0),
             GraphNode("Прокрастинация", 1 if self.procrastination.get() == 1 else 0),
@@ -73,16 +73,19 @@ class WorkArea:
         return start_facts
 
     def calc_factors(self):
-
         self.run()
+        for x, y in self.prod_system.facts.items():
+            print("{} - {}".format(x, y))
+        print('*' * 20)
 
     def run(self):
         facts = self.get_facts()
-        prod_system = ProductionSystem.get_instance(facts)
+        self.prod_system = ProductionSystem.get_instance(facts)
+        prod_system = self.prod_system
         prod_system.mainloop()
         result = prod_system.get_result()
 
-        passProbability = result[0].CF
+        passProbability = (1 + result[0].CF) / 2
         Label(self.root, text="Вероятность сдачи зачёта - {0:.2f}".format(passProbability))\
             .grid(row=8, column=4, columnspan=2)
         Label(self.root, text="Вероятность не сдачи зачёта - {0:.2f}".format(1 - passProbability))\
