@@ -1,10 +1,12 @@
 import sys
 import time
 import telepot
+import random
+
 from telepot.loop import MessageLoop
 from pprint import pprint
-import random
 from file_ids import *
+from aiml_bot import kernel
 
 def handle(msg):
     content_type, chat_type, chat_id = telepot.glance(msg)
@@ -24,26 +26,21 @@ def handle(msg):
         if msg_text.lower() == 'hello there':
             bot.sendPhoto(chat_id, files['kenobi'])
         else:
-            rnd_value = random.random() * 100
-            if rnd_value > 70:
-                print('fresh meat alert')
-                # bot.sendSticker(chat_id, files['fresh meat'])
-            else:
-                pass
+            msg = kernel.respond(msg_text)
+            if len(msg) == 0:
+                msg = 'соре, не знаю такого'
+            bot.sendMessage(chat_id, msg)
+            # rnd_value = random.random() * 100
+            # if rnd_value > 70:
+            #     print('fresh meat alert')
+            #     # bot.sendSticker(chat_id, files['fresh meat'])
+            # else:
+            #     pass
                 # bot.sendMessage(chat_id, msg_text)
 
 TOKEN = "692035517:AAHNDPhxgvKIHHegeW7yPXWAc5EDcz3KKcU"
 
 bot = telepot.Bot(TOKEN)
-stickers = bot.getStickerSet('Organism_eeZee')['stickers']
-
-f = open('ids.txt', 'a')
-for sticker in stickers:
-    f.write(sticker['file_id'])
-    f.write('\n')
-    print('robot sticker id: {}'.format(sticker['file_id']))
-
-f.close()
 
 MessageLoop(bot, handle).run_as_thread()
 print('Listening ...')
