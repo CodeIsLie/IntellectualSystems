@@ -2,11 +2,14 @@ import sys
 import time
 import telepot
 import random
+import aiml
 
 from telepot.loop import MessageLoop
 from pprint import pprint
 from file_ids import *
-from aiml_bot import kernel
+
+kernel = aiml.Kernel()
+kernel.learn("basic_chat.aiml")
 
 def handle(msg):
     content_type, chat_type, chat_id = telepot.glance(msg)

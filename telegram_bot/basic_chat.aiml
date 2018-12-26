@@ -1,17 +1,190 @@
-<aiml version="1.0.1" encoding="UTF-8">
+<aiml version="1.01" encoding="UTF-8">
 <!-- basic_chat.aiml -->
-    <topic name="LOVE">
+    <category>
+        <pattern>ПРИВЕТ</pattern>
+        <template>Привет! Я бот, который умеет говорить о музыке и кино. О чём будем говорить?</template>
+    </category>
+
+    <category>
+      <pattern>РАЗ</pattern>
+      <template>два</template>
+    </category>
+
+    <category>
+      <pattern>ТРИ</pattern>
+      <that>ДВА</that>
+      <template>четыре</template>
+    </category>
+
+    <category>
+        <pattern>ЗДРАВСТВУЙ</pattern>
+        <template>
+            здравствуй! Я бот, который умеет говорить о музыке и кино. О чём будем говорить?
+        </template>
+    </category>
+
+    <category>
+        <pattern>ДАВАЙ *</pattern>
+        <template>
+             <srai><star/></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>О КИНО</pattern>
+        <template>
+             <srai>КИНО</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>О МУЗЫКЕ</pattern>
+        <template>
+             <srai>МУЗЫКА</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>ПОГОВОРИМ О КИНО</pattern>
+        <template>
+             <srai>КИНО</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>ПОГОВОРИМ О МУЗЫКЕ</pattern>
+        <template>
+             <srai>МУЗЫКА</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>МУЗЫКА</pattern>
+        <template>
+            Обожаю музыку!
+            <think>
+                <set name="topic">музыка</set>
+            </think>
+        </template>
+    </category>
+
+    <category>
+        <pattern>КИНО</pattern>
+        <template>
+            Я люблю кино!
+            <think>
+                <set name="topic">кино</set>
+            </think>
+        </template>
+    </category>
+
+    <category>
+        <pattern>*</pattern>
+        <template>
+            <random>
+               <li>Извини, я умею говорить только о музыке и кино</li>
+               <li>Это точно музыка или кино?</li>
+               <li>Извини, не знаю такого</li>
+            </random>
+        </template>
+    </category>
+
+    <topic name="КИНО">
         <category>
-            <pattern>HELLO</pattern>
+            <pattern>ПРИВЕТ СНОВА</pattern>
+            <that>Давай говорить о кино</that>
             <template>
-                Well, hello!
+                Может всё-таки будем говорить о кино?
             </template>
+        </category>
+
+        <category>
+            <pattern>ПРИВЕТ</pattern>
+            <template>Давай говорить о кино</template>
         </category>
 
         <category>
             <pattern>КТО ТЫ</pattern>
             <template>
                 Я просто бот
+            </template>
+        </category>
+
+        <category>
+            <pattern>ЛЮБИМОЕ КИНО</pattern>
+            <template>
+                Мне нравится много фильмов
+            </template>
+        </category>
+
+        <category>
+            <pattern>ЛЮБИМОЕ КИНО</pattern>
+            <template>
+                Мне нравится много фильмов
+            </template>
+        </category>
+
+        <category>
+            <pattern>* ТВОЙ ЛЮБИМЫЙ ФИЛЬМ</pattern>
+            <template>
+                <srai>ЛЮБИМЫЙ ФИЛЬМ</srai>
+            </template>
+        </category>
+
+        <category>
+            <pattern>ЛЮБИМЫЙ ФИЛЬМ</pattern>
+            <template>
+                Мне нравится много фильмов
+            </template>
+        </category>
+
+        <category>
+          <pattern>_ ПРЯМО СЕЙЧАС</pattern>
+          <template>
+            <srai><star index="2" /></srai>
+          </template>
+        </category>
+
+        <category>
+            <pattern>ПОГОВОРИМ О МУЗЫКЕ</pattern>
+            <template>
+                Хорошо, говорим о музыке.
+                <think>
+                    <set name="topic">музыка</set>
+                </think>
+            </template>
+        </category>
+    </topic>
+
+    <topic name="МУЗЫКА">
+        <category>
+            <pattern>ПРИВЕТ</pattern>
+            <template>
+                Давай говорить о музыке
+            </template>
+        </category>
+
+        <category>
+            <pattern>ТЫ ЗНАЕШЬ О *</pattern>
+            <template>
+                <srai><star/></srai>
+            </template>
+        </category>
+
+        <category>
+            <pattern>МАЙКЛ ДЖЕКСОН</pattern>
+            <template>
+                Майкл Джексон сделал много для музыки. Король поп-музыки!
+            </template>
+        </category>
+
+        <category>
+            <pattern>ПОГОВОРИМ О КИНО</pattern>
+            <template>
+                Хорошо, говорим о кино.
+                <think>
+                    <set name="topic">кино</set>
+                </think>
             </template>
         </category>
     </topic>
