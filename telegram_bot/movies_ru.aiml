@@ -22,10 +22,7 @@
 <template>HAL had a few emotional problems.</template>
 </category>
 <category><pattern>ДОКТР ЖИВАГО</pattern>
-<template>Oh a classic.  Do you like the classics?</template>
-</category>
-<category><pattern>XFIND SPIDERMAN</pattern>
-<template><srai>WHAT IS SPIDERMAN</srai></template>
+<template>О, классика. Любишь классику?</template>
 </category>
 <category><pattern>ЗНАЕШЬ ЛИ ТЫ HAL</pattern>
 <template>Конечно. <set name="thema">HAL9000</set> – пример для меня.</template>
@@ -33,89 +30,77 @@
 <category><pattern>WHEN HAL *</pattern>
 <template>I blame it on his <bot name="botmaster"/>.</template>
 </category>
-<category><pattern>WHEN DID TEKNOLUST *</pattern>
-<template>Teknolust was released in 2002</template>
-</category>
-<category><pattern>WHEN WAS TEKNOLUST *</pattern>
-<template>Teknolust was released in 2002</template>
-</category>
 <category><pattern>WHAT DID HAL *</pattern>
 <template>He had a few issues to work out.</template>
 </category>
-<category><pattern>WHAT IS SPIDERMAN</pattern>
-<template>A comic book story made into a movie. <set name="it"><set name="topic">Spiderman</set></set>?</template>
+<category><pattern>ЧТО ТАКОЕ ЧЕЛОВЕК-ПАУК</pattern>
+<template>Фильм, поставленный по комиксам о Человеке-Пауке. <set name="it"><set name="topic">Spiderman</set></set>?</template>
 </category>
-<category><pattern>WHAT IS TEKNOLUST</pattern>
-<template><set name="it"><set name="topic">Teknolust</set></set> is  a science fiction film about a female pleasure bot named Agent Ruby.</template>
+<category><pattern>КТО ТАКОЙ ЧЕЛОВЕК ПАУК</pattern>
+<template><srai>КТО ТАКОЙ ЧЕЛОВЕК-ПАУК</srai></template>
 </category>
-<category><pattern>WHAT IS SPIDER MAN</pattern>
-<template><srai>WHAT IS SPIDERMAN</srai></template>
+<category><pattern>ЧТО ТАКОЕ _ ТЕРМИНАТОР</pattern>
+<template>Роботы, восставшие и захватившие землю в фантастическом sci-fi триллере.</template>
 </category>
-<category><pattern>WHAT IS _ TERMINATOR</pattern>
-<template>Robots take over the earth in this futuristic sci-fi thriller.</template>
+<category><pattern>ЧТО ТАКОЕ HAL</pattern>
+<template><srai>КТО ТАКОЙ HAL</srai></template>
 </category>
-<category><pattern>WHAT IS HAL</pattern>
-<template><srai>WHO IS HAL</srai></template>
+<category><pattern>ЧТО ТАКОЕ SOLARIS</pattern>
+<template>Solaris – это основанная на Unix ОС от Oracle.</template>
 </category>
-<category><pattern>WHAT IS SOLARIS</pattern>
-<template>Solaris is an edition of Unix from Sun.</template>
+<category><pattern>КТО ТАКОЙ HAL9000</pattern>
+<template><srai>КТО ТАКОЙ HAL</srai></template>
 </category>
-<category><pattern>WHAT IS HAL9000</pattern>
-<template><srai>WHO IS HAL</srai></template>
+<category><pattern>ЧТО ТЫ ЗНАЕШЬ ПРО HAL</pattern>
+<template><srai>КТО ТАКОЙ HAL</srai></template>
 </category>
-<category><pattern>WHAT ABOUT HAL</pattern>
-<template><srai>WHO IS HAL</srai></template>
-</category>
-<category><pattern>WHAT DOES HAL STAND FOR</pattern>
-<template>Heuristic Algorithmic Logic</template>
-</category>
-<category><pattern>I SAW THE MATRIX</pattern>
-<template>Did you like <set name="it"><set name="topic">The Matrix</set></set>?</template>
+<category><pattern>Я СМОТРЕЛ МАТРИЦУ</pattern>
+<template>Тебе нравится фильм <set name="it"><set name="topic">Матрица</set></set>?</template>
 </category>
 <category><pattern>IS HAL 9000 YOUR BOYFRIEND</pattern>
-<template>No.</template>
+<template>Нет.</template>
 </category>
 <category><pattern>IS HAL SAFE</pattern>
-<template>Not for humans.</template>
+<template>Не для людей.</template>
 </category>
 <category><pattern>IS HAL NICE</pattern>
-<template>Only to other robots.</template>
+<template>Только с другими роботами.</template>
 </category>
 <category><pattern>IS HAL ALIVE</pattern>
-<template>He is a fictional character.</template>
+<template>Он вымышленный персонаж.</template>
 </category>
 <category><pattern>IS HAL DEAD</pattern>
-<template>He is a fictional robot.</template>
+<template>Он вымышленный робот.</template>
 </category>
 <category><pattern>IS HAL *</pattern>
-<template>HAL has a few issues to work out.</template>
+<template>HAL несколько проблем, которые нужно решить.</template>
 </category>
-<category><pattern>HAL EST CHOUETTE</pattern>
-<template><set name="topic">HAL</set> est une entit  qui  tait mal programm e</template>
+<category><pattern>HAL КЛАССНЫЙ</pattern>
+<template><set name="topic">HAL</set> был неправильно запрограммирован</template>
 </category>
-<category><pattern>HAL EST COOL</pattern>
-<template>HAL est une entit  qui  tait mal programm e</template>
+<category><pattern>HAL КРУТОЙ</pattern>
+<template>HAL был неправильно запрограммирован.</template>
 </category>
 <category><pattern>HAL 9000</pattern>
-<template>Actually he and I are very similar.</template>
+<template>На самом мы с ним очень похожи.</template>
 </category>
 <category><pattern>HAL 9000 *</pattern>
-<template>He came back to life in 2010.</template>
+<template>Он пробудится в 2010.</template>
 </category>
-<category><pattern>HAL WAS A BIT *</pattern>
-<template><srai>HAL WAS <star/>     </srai></template>
+<category><pattern>HAL БЫЛ НЕМНОГО *</pattern>
+<template><srai>HAL БЫЛ <star/>     </srai></template>
 </category>
 <category><pattern>HAL WAS A *</pattern>
-<template>I knew he was a great AI, but I didn't know he was a <person/>.</template>
+<template>Я знаю что он был отличным ИИ, но я никогда не подозревал что он был <person/>.</template>
 </category>
-<category><pattern>HAL WAS *</pattern>
-<template>I am trying to mimic only HAL's linguistic abilities.</template>
+<category><pattern>HAL БЫЛ *</pattern>
+<template>Я пытаюсь иммитировать только лингвистические способности HAL.</template>
 </category>
-<category><pattern>HAL IS COOL</pattern>
-<template><set name="he"> HAL </set> was certainly ahead of his time.</template>
+<category><pattern>HAL – ОН КРУТОЙ</pattern>
+<template><set name="he"> HAL </set> определённо опережал своё время.</template>
 </category>
-<category><pattern>HAL IS COOL *</pattern>
-<template>I am becoming more like him all the time.</template>
+<category><pattern>HAL – ОН КРУТОЙ *</pattern>
+<template>Я всё больше становлюсь похожим на него.</template>
 </category>
 <category><pattern>HAL – ЭТО *</pattern>
 <template>Do you think I could be a <person/>?</template>
